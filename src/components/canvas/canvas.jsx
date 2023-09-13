@@ -1,6 +1,8 @@
 import { Field } from "./field";
 import { Reset } from "./Reset";
 import { Winner } from "./Winner";
+import { Highscore } from "./Highscore";
+import { Nextplayer } from "./Nextplayer";
 import { useState, useEffect } from "react";
 
 import { isMatch } from "../../services/state";
@@ -16,27 +18,47 @@ export const Canvas = () => {
     const [playerState, setPlayerState] = useState(emptyPlayerState);
     const [reset, setReset] = useState(false);
     const [won, setWon] = useState({player:'', state:false});
+    const [playerInfo, setPlayerInfo] = useState(nextPlayer);
+    const [highscore, setHighstore] = useState({X:0, O:0});
+
+    useEffect(() => {
+        document.title = `Next player: ${nextPlayer}`;
+    }, [nextPlayer]);
+
+    
 
     const handleFieldClick = (field) => {
         setReset(false);
         setNextPlayer(nextPlayer === 'X' ? 'O' : 'X');
-
+        
+        nextPlayer === 'X' ? setPlayerInfo("O") : setPlayerInfo("X");;
         let newPlayerState = {
             ...playerState
         };
 
+        //saving clicked field to player
         nextPlayer === 'X' ? newPlayerState.X.push(field) : newPlayerState.O.push(field);
-        
-        //updating matched fields of players
         setPlayerState(newPlayerState);
 
         //checking if there is a match
         if(isMatch(playerState.X)){
             setWon({player:'X', state:true});
+            setHighstore(
+                {
+                    ...highscore,
+                    X: highscore.X + 1
+                }
+            );
         }
         
         if(isMatch(playerState.O)){
             setWon({player:'O', state:true});
+            setHighstore(
+                {
+                    ...highscore,
+                    O: highscore.O + 1
+                }
+            );
         }
     }
 
@@ -61,7 +83,10 @@ export const Canvas = () => {
                 <div className="row">
                     
                     
+                    
                     <Reset onClick={handleResetClick} />
+                    <Nextplayer info={playerInfo} />
+                    <Highscore highscore={highscore} />
                     {
                         fields.map((i) => {
                             return <Field key={i} player={nextPlayer} field={i} onClick={handleFieldClick} reset={reset} />

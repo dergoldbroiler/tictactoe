@@ -67,6 +67,33 @@ margin-top: 10px;
   cursor: pointer;
   z-index: 999;
 }
+#next-player {
+  position: fixed;
+  top: 160px;
+  right: 2%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  display: inline-block;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 999;
+  text-align: center;
+}
+
+.highscore {
+  position: fixed;
+  top: 260px;
+  text-align: center;
+  right: 2%;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 999;
+  text-align: center;
+}
 
 @media(max-width:1024px){
   .canvas {
