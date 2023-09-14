@@ -8,7 +8,7 @@ body, html {
   padding: 0;
 }
 .single-field{
-  min-height: 200px;
+  min-height: 100px;
   background-color: #fff;
   cursor: pointer;
   font-size: 40px;
@@ -95,15 +95,43 @@ margin-top: 10px;
   text-align: center;
 }
 
-@media(max-width:1024px){
+@media(max-width:1280px){
   .canvas {
-    height:86svh;
-    width: 100vw;
+    height:600px;
+    width: 600px;
   }
   
   
   .canvas .row {
-    height: 33%;
+    height: 200px;
+  }
+  
+
+}
+
+@media(max-width:992px){
+  .canvas {
+    height:450px;
+    width: 450px;
+  }
+  
+  
+  .canvas .row {
+    height: 150px;
+  }
+  
+}
+
+
+@media(max-width:600px){
+  .canvas {
+    height:300px;
+    width: 300px;
+  }
+  
+  
+  .canvas .row {
+    height: 100px;
   }
   
 

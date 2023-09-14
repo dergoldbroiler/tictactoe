@@ -1,4 +1,4 @@
-import { Field } from "./field";
+import { Field } from "./Field";
 import { Reset } from "./Reset";
 import { Winner } from "./Winner";
 import { Highscore } from "./Highscore";
@@ -19,7 +19,7 @@ export const Canvas = () => {
     const [reset, setReset] = useState(false);
     const [won, setWon] = useState({player:'', state:false});
     const [playerInfo, setPlayerInfo] = useState(nextPlayer);
-    const [highscore, setHighstore] = useState({X:0, O:0});
+    const [highscore, setHighscore] = useState({X:0, O:0});
 
     useEffect(() => {
         document.title = `Next player: ${nextPlayer}`;
@@ -43,7 +43,7 @@ export const Canvas = () => {
         //checking if there is a match
         if(isMatch(playerState.X)){
             setWon({player:'X', state:true});
-            setHighstore(
+            setHighscore(
                 {
                     ...highscore,
                     X: highscore.X + 1
@@ -53,7 +53,7 @@ export const Canvas = () => {
         
         if(isMatch(playerState.O)){
             setWon({player:'O', state:true});
-            setHighstore(
+            setHighscore(
                 {
                     ...highscore,
                     O: highscore.O + 1
@@ -71,14 +71,26 @@ export const Canvas = () => {
         newPlayerState.O = [];
         setPlayerState(newPlayerState);
         setReset(true);
+        setHighscore({X:0, O:0});
+    }
 
+
+    const handleCloseClick = () => {
+        setWon({player:'', state:false});
+        let newPlayerState = {
+            ...playerState
+        };
+        newPlayerState.X = [];
+        newPlayerState.O = [];
+        setPlayerState(newPlayerState);
+        setReset(true);
     }
 
     const fields = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     return (
         <>
-        <Winner won={won} resetclick={handleResetClick} />
+        <Winner won={won} resetclick={handleCloseClick} />
             <div className="canvas m-auto">
                 <div className="row">
                     
@@ -87,6 +99,7 @@ export const Canvas = () => {
                     <Reset onClick={handleResetClick} />
                     <Nextplayer info={playerInfo} />
                     <Highscore highscore={highscore} />
+                    
                     {
                         fields.map((i) => {
                             return <Field key={i} player={nextPlayer} field={i} onClick={handleFieldClick} reset={reset} />

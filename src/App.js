@@ -5,7 +5,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import "./App.css";
 
-import { Canvas } from "./components/canvas/canvas";
+import { Canvas } from "./components/canvas/Canvas";
 
 function App() {
   return (
